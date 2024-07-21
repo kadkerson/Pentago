@@ -62,14 +62,24 @@ print(game.get_game_state())
 
 ```
 And the output could look like this:
+
 True
+
 True
+
 False
+
 □   □   □   □   □   □
+
 □   □   □   □   □   □
+
 ●   □   ○   □   □   □
+
 □   □   □   □   □   □
+
 □   □   □   □   □   □
+
 □   □   □   □   □   □
+
 UNFINISHED
 
