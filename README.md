@@ -35,6 +35,7 @@ Your Pentago class must include the following:
 * **Position**: a string that represent the position the marble will be put onto the board. It will be like ‘a0’, ’b1’, etc.
 * **Sub-board**: an integer of either 1, 2, 3 or 4 that represents the sub-board the player choose to rotate
 * **Rotation**: a string that represent the direction the sub-board will rotate, either ‘C’ (clockwise) or ‘A’ (anti-clockwise).
+  
 For example, make_move('white', 'a2', 1, 'C'). You can assume all user inputs will be valid when the make_move method is called. The method should verify the following special cases:
 a.	If the game is finished at this stage, the method should do nothing else and return **"game is finished"**
 b.	If the color of the piece to be placed doesn't match the current player's color, the method should do nothing but return **"not this player's turn"**
