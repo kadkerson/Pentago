@@ -14,37 +14,57 @@ If the white player achieves five-in-a-row, they win immediately.
 
 If the white player does not achieve five-in-a-row, after the rotation:
 
-* a. If neither white nor black has a five-in-a-row, the game continues.
-* b. If black achieves five-in-a-row, black wins.
-* c. If white achieves five-in-a-row, white wins.
-* d. If both players achieve five-in-a-row, the game is a draw.
+* If neither white nor black has a five-in-a-row, the game continues.
+* If black achieves five-in-a-row, black wins.
+* If white achieves five-in-a-row, white wins.
+* If both players achieve five-in-a-row, the game is a draw.
  
 If neither white nor black has a five-in-a-row after the rotation and the board is full with 36 pieces, the game ends in a draw.
 
 Here, we assume that **black will play first**. The figure "game_board" illustrates how the board will be labeled using our notation. ![board](game_board.png "game board")The four sub-boards are labeled with the integers 1, 2, 3, and 4, as shown in the figure. The six rows are labeled from 'a' to 'f' from top to bottom, and the six columns are labeled from '0' to '5' from left to right. Each space on the board can then be referred to as 'a0', 'a1', and so on.
 
+Write a class named **Pentago** for playing this abstract board game. You will need to keep track of which player's turn it is.
 
-Special rules for this variant of chess:
+Your Pentago class must include the following:
 
-In Atomic Chess, whenever a piece is captured, an "explosion" occurs at the 8 squares immediately surrounding the captured piece in all the directions. This explosion kills all of the pieces in its range except for **pawns**. Different from regular chess, where only the captured piece is taken off the board, in Atomic Chess, every capture is suicidal. Even the capturing piece is affected by the explosion and must be taken off the board. As a result, a pawn can only be removed from the board when directly involved in a capture. If that is the case, both capturing and captured pawns must be removed from the board. Because every capture causes an explosion that affects not only the victim but also the capturing piece itself, **the king is not allowed to make captures**. Also, a player **cannot blow up both kings at the same time**. In other words, the move that would kill both kings in one step is not allowed. Blowing up a king has the same effect as capturing it, which will end the game.
-[(https://www.chess.com/terms/atomic-chess#captures-and-explosions)](https://www.chess.com/terms/atomic-chess#captures-and-explosions)
-
-Your ChessVar class must include the following:
-* An **init method** that initializes any data members
-* A method called **get_game_state** that just returns 'UNFINISHED', 'WHITE_WON', 'BLACK_WON'. 
-* A method called **make_move** that takes two parameters - strings that represent the square moved from and the square moved to.  For example, make_move('b2', 'b4').  If the square being moved from does not contain a piece belonging to the player whose turn it is, or if the indicated move is not allowed, or if the game has already been won, then it should **just return False**.  Otherwise it should make the indicated move, remove any captured (explosion) pieces from the board, update the game state (unfinished to who wins) if necessary, update whose turn it is, and return True.
-
-You need to implement a method called **print_board** that outputs the current state of the board. This will be extremely helpful for testing. You can choose any format for displaying the board, provided it is legible to others. If you're uncertain about the acceptability of your format, ask it on the discussion board.
-
-Feel free to add whatever other classes, methods, or data members you want.  All data members of a class must be private.  Every class should have an init method that initializes all of the data members for that class.
+1.	An **init** method that initializes any data members
+2.	A method called **get_game_state** that just returns **'UNFINISHED', 'WHITE_WON', or 'BLACK_WON'**.
+3.	A method called **is_board_full** that takes no parameter and return True or False that indicate whether the board is already full.
+4.	A method called **make_move** that takes four parameters: 
+**Color**: a string that represent the color of the marble. It will be either ‘white’ or ‘black’ 
+**Position**: a string that represent the position the marble will be put onto the board. It will be like ‘a0’, ’b1’, etc.
+**Sub-board**: an integer of either 1, 2, 3 or 4 that represents the sub-board the player choose to rotate
+**Rotation**: a string that represent the direction the sub-board will rotate, either ‘C’ (clockwise) or ‘A’ (anti-clockwise).
+For example, make_move('white', 'a2', 1, 'C'). You can assume all user inputs will be valid when the make_move method is called. The method should verify the following special cases:
+a.	If the game is finished at this stage, the method should do nothing else and return **"game is finished"**
+b.	If the color of the piece to be placed doesn't match the current player's color, the method should do nothing but return **"not this player's turn"**
+c.	If the position where the piece is to be placed is already taken, the method should return **"position is not empty"**
+Otherwise, it should place the marble onto the board, rotate the sub-board (if the player hasn't won after placing the marble), update the board and game state (from unfinished to indicate who wins, if necessary), update whose turn it is, and return True. Since this method handles most of the gameplay tasks, you can call other methods within it. For example, you could have a separate method to check if a player has achieved a 5-in-a-row, and call this method in make_move both before and after the rotation to determine the win state. You could also have a separate method to handle rotating the sub-board, given the sub-board number and the rotation direction.
+5. You need to implement a method called **print_board** that outputs the current state of the board. This will be extremely helpful for testing. You can choose any format for displaying the board, provided it is legible to others. If you're uncertain about the acceptability of your format, ask it on the discussion board.
+   
+Feel free to add whatever other classes, methods, or data members you want. All data members of a class must be **private**. Every class should have an init method that initializes all of the data members for that class.
+The file must be named: **Pentago.py**
 
 Here's a very simple example of how the class could be used:
+
 ```
-game = ChessVar()
-print(game.make_move('d2', 'd4'))  # output True
-print(game.make_move('g7', 'g5'))  # output True
-print(game.make_move('c1', 'g5'))  # output True
+game = Pentago()
+print(game.make_move('black', 'a2', 1, 'C'))
+print(game.make_move('white', 'a2', 1, 'C'))
+print(game.is_board_full())
 game.print_board()
-print(game.get_game_state())  # output UNFINISHED
+print(game.get_game_state())
+
 ```
-The file must be named: ChessVar.py
+And the output could look like this:
+True
+True
+False
+□   □   □   □   □   □
+□   □   □   □   □   □
+●   □   ○   □   □   □
+□   □   □   □   □   □
+□   □   □   □   □   □
+□   □   □   □   □   □
+UNFINISHED
+
