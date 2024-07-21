@@ -41,7 +41,9 @@ For example, make_move('white', 'a2', 1, 'C'). You can assume all user inputs wi
 * If the color of the piece to be placed doesn't match the current player's color, the method should do nothing but return **"not this player's turn"**
 * If the position where the piece is to be placed is already taken, the method should return **"position is not empty"**
   
-Otherwise, it should place the marble onto the board, rotate the sub-board (if the player hasn't won after placing the marble), update the board and game state (from unfinished to indicate who wins, if necessary), update whose turn it is, and return True. Since this method handles most of the gameplay tasks, you can call other methods within it. For example, you could have a separate method to check if a player has achieved a 5-in-a-row, and call this method in make_move both before and after the rotation to determine the win state. You could also have a separate method to handle rotating the sub-board, given the sub-board number and the rotation direction.
+Otherwise, it should **place** the marble onto the board, **rotate** the sub-board (if the player hasn't won after placing the marble), **update** the board and game state (from unfinished to indicate who wins, if necessary), **update** whose turn it is, and **return True**. 
+
+Since this method handles most of the gameplay tasks, you can call other methods within it. For example, you could have a separate method to check if a player has achieved a 5-in-a-row, and call this method in make_move both before and after the rotation to determine the win state. You could also have a separate method to handle rotating the sub-board, given the sub-board number and the rotation direction.
 
 5. You need to implement a method called **print_board** that outputs the current state of the board. This will be extremely helpful for testing. You can choose any format for displaying the board, provided it is legible to others. If you're uncertain about the acceptability of your format, ask it on the discussion board.
    
