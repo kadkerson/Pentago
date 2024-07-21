@@ -2,15 +2,27 @@
 
 **Remember that this project cannot be submitted late.**
 
-Write a class named **ChessVar** for playing an abstract board game that is a variant of chess--atomic chess. The following explanation of the rules assumes some familiarity with the rules of chess - specifically how the pieces move and capture. If you have any questions about those rules, please don't hesitate to ask.
+Pentago is a two-player abstract strategy game played on a 6×6 board, which is divided into four 3×3 sub-boards (or quadrants). Players take turns placing a marble of their color (either black or white) onto an unoccupied space on the board and then rotating one of the sub-boards by 90 degrees, either clockwise or anti-clockwise. The rotation step is mandatory, and the player can choose to rotate any of the four sub-boards, not necessarily the one where they placed the marble.
 
-The starting position for the game is the normal starting position for standard chess. You will need to keep track of which player's turn it is. As in standard chess, white moves first. Pieces move and capture the same as in standard chess, except that **there is no check or checkmate, and there is no castling, en passant, or pawn promotion**. As in standard chess, each pawn should be able to move two spaces forward on its first move (but not on subsequent moves). 
+To learn how to play the game, check out this video: How to Play Pentago.[(https://boardgamegeek.com/video/482262/pentago/how-to-play-pentago)](https://boardgamegeek.com/video/482262/pentago/how-to-play-pentago) and you could play it by yourself in this website: [(https://pentago.vercel.app/)](https://pentago.vercel.app/)
 
-If a player's king is captured or blown up, the game ends, and that player loses. 
+A player wins by getting five of their marbles in a vertical, horizontal, or diagonal row, either before or after the sub-board rotation. If a player achieves five-in-a-row before the rotation step, the game ends immediately, and the player doesn't need to rotate a sub-board. If both players achieve five-in-a-row after the rotation, the game is a draw. If only the opponent gets a five-in-a-row after the rotation, the opponent wins. If all 36 spaces on the entire board are occupied without forming a row of five after the rotation, the game ends in a draw.
 
-Locations on the board will be specified using "algebraic notation", with columns labeled a-h and rows labeled 1-8, as shown in this diagram:
+For example, after the white player places a marble on the board, several scenarios could occur:
 
-![board](starting_position.png "starting position")
+If the white player achieves five-in-a-row, they win immediately.
+
+If the white player does not achieve five-in-a-row, after the rotation:
+
+* a. If neither white nor black has a five-in-a-row, the game continues.
+* b. If black achieves five-in-a-row, black wins.
+* c. If white achieves five-in-a-row, white wins.
+* d. If both players achieve five-in-a-row, the game is a draw.
+* 
+If neither white nor black has a five-in-a-row after the rotation and the board is full with 36 pieces, the game ends in a draw.
+
+Here, we assume that black will play first. The figure "game_board" illustrates how the board will be labeled using our notation. ![board](game_board.png "game board")The four sub-boards are labeled with the integers 1, 2, 3, and 4, as shown in the figure. The six rows are labeled from 'a' to 'f' from top to bottom, and the six columns are labeled from '0' to '5' from left to right. Each space on the board can then be referred to as 'a0', 'a1', and so on.
+
 
 Special rules for this variant of chess:
 
