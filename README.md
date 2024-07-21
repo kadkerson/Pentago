@@ -18,10 +18,10 @@ If the white player does not achieve five-in-a-row, after the rotation:
 * b. If black achieves five-in-a-row, black wins.
 * c. If white achieves five-in-a-row, white wins.
 * d. If both players achieve five-in-a-row, the game is a draw.
-* 
+ 
 If neither white nor black has a five-in-a-row after the rotation and the board is full with 36 pieces, the game ends in a draw.
 
-Here, we assume that black will play first. The figure "game_board" illustrates how the board will be labeled using our notation. ![board](game_board.png "game board")The four sub-boards are labeled with the integers 1, 2, 3, and 4, as shown in the figure. The six rows are labeled from 'a' to 'f' from top to bottom, and the six columns are labeled from '0' to '5' from left to right. Each space on the board can then be referred to as 'a0', 'a1', and so on.
+Here, we assume that **black will play first**. The figure "game_board" illustrates how the board will be labeled using our notation. ![board](game_board.png "game board")The four sub-boards are labeled with the integers 1, 2, 3, and 4, as shown in the figure. The six rows are labeled from 'a' to 'f' from top to bottom, and the six columns are labeled from '0' to '5' from left to right. Each space on the board can then be referred to as 'a0', 'a1', and so on.
 
 
 Special rules for this variant of chess:
