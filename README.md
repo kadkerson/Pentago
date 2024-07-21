@@ -29,7 +29,7 @@ Your Pentago class must include the following:
 
 1.	An **init** method that initializes any data members
 2.	A method called **get_game_state** that just returns **'UNFINISHED', 'WHITE_WON', or 'BLACK_WON'**.
-3.	A method called **is_board_full** that takes no parameter and return True or False that indicate whether the board is already full.
+3.	A method called **is_board_full** that takes no parameter and return True or False that indicate whether the board is already full (True if full).
 4.	A method called **make_move** that takes four parameters: 
 **Color**: a string that represent the color of the marble. It will be either ‘white’ or ‘black’ 
 **Position**: a string that represent the position the marble will be put onto the board. It will be like ‘a0’, ’b1’, etc.
