@@ -28,7 +28,7 @@ Write a class named **Pentago** for playing this abstract board game. You will n
 Your Pentago class must include the following:
 
 1.	An **init** method that initializes any data members
-2.	A method called **get_game_state** that just returns **'UNFINISHED', 'WHITE_WON', or 'BLACK_WON'**.
+2.	A method called **get_game_state** that just returns **'UNFINISHED', 'WHITE_WON', 'BLACK_WON' or 'DRAW'**.
 3.	A method called **is_board_full** that takes no parameter and return True or False that indicate whether the board is already full (True if full).
 4.	A method called **make_move** that takes four parameters: 
 * **Color**: a string that represent the color of the marble. It will be either ‘white’ or ‘black’ 
