@@ -23,7 +23,7 @@ class Pentago:
     def __init__(self, player_1, player_2):
         self._board = [['□' for _ in range(6)] for _ in range(6)]  # creates 6x6 grid, empty spaces represented by □
         self._players = [player_1, player_2]
-        self._turn_tracker = 0  # Turn 0 is white/player 1, Turn 1 is black/player 2
+        self._turn_tracker = 0  # turn 0 is white/player 1, turn 1 is black/player 2
         self._game_state = 'UNFINISHED'
         self._rows = {'A': 0,
                       'B': 1,
@@ -31,7 +31,7 @@ class Pentago:
                       'D': 3,
                       'E': 4,
                       'F': 5}
-        self._columns = {'0': 0,
+        self._columns = {'0': 0,  # rows and columns represented as dictionaries for placing marbles
                          '1': 1,
                          '2': 2,
                          '3': 3,
@@ -125,28 +125,28 @@ class Pentago:
                                4: (3, 3)}
 
         start_row, start_col = sub_board_locations[sub_board]
-        quad = []
-        for row_index in range(3):
+        current_board = []
+        for row_index in range(3):  # loop to pop out sub-board
             row = []
             for col_index in range(3):
                 row.append(self._board[start_row + row_index][start_col + col_index])
-            quad.append(row)
+            current_board.append(row)
 
         rotation = None
         if direction == 'C':
             rotation = [
-                [quad[2][0], quad[1][0], quad[0][0]],
-                [quad[2][1], quad[1][1], quad[0][1]],
-                [quad[2][2], quad[1][2], quad[0][2]],
+                [current_board[2][0], current_board[1][0], current_board[0][0]],
+                [current_board[2][1], current_board[1][1], current_board[0][1]],
+                [current_board[2][2], current_board[1][2], current_board[0][2]],
             ]
         elif direction == 'A':
             rotation = [
-                [quad[0][2], quad[1][2], quad[2][2]],
-                [quad[0][1], quad[1][1], quad[2][1]],
-                [quad[0][0], quad[1][0], quad[2][0]],
+                [current_board[0][2], current_board[1][2], current_board[2][2]],
+                [current_board[0][1], current_board[1][1], current_board[2][1]],
+                [current_board[0][0], current_board[1][0], current_board[2][0]],
             ]
 
-        for row_index in range(3):
+        for row_index in range(3):  # put sub-board back into game
             for col_index in range(3):
                 self._board[start_row + row_index][start_col + col_index] = rotation[row_index][col_index]
 
