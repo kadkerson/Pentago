@@ -20,15 +20,9 @@ class Player:
 
 
 class Pentago:
-    def __init__(self, player_1=None, player_2=None):
-
-        if player_1 is None:
-            player_1 = Player("Default Player 1", "white")
-        if player_2 is None:
-            player_2 = Player("Default Player 2", "black")
-
+    def __init__(self, player_1, player_2):
         self._board = [['□' for _ in range(6)] for _ in range(6)]  # creates 6x6 grid, empty spaces represented by □
-        self._players = [player_1, player_2]
+        self._players = []
         self._turn_tracker = 0  # turn 0 is white/player 1, turn 1 is black/player 2
         self._game_state = 'UNFINISHED'
         self._rows = {'A': 0,
@@ -43,6 +37,10 @@ class Pentago:
                          '3': 3,
                          '4': 4,
                          '5': 5}
+
+    def create_player(self, name, color):
+        player = Player(name, color)
+        self._players.append(player)
 
     def get_game_state(self):
         """
