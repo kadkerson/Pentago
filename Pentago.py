@@ -20,7 +20,7 @@ class Player:
 
 
 class Pentago:
-    def __init__(self, player_1, player_2):
+    def __init__(self, player_1=None, player_2=None):
         self._board = [['□' for _ in range(6)] for _ in range(6)]  # creates 6x6 grid, empty spaces represented by □
         self._players = [player_1, player_2]
         self._turn_tracker = 0  # turn 0 is white/player 1, turn 1 is black/player 2
