@@ -109,6 +109,7 @@ class Pentago:
             self._game_state = "BLACK_WON"
             return True  # end game if win is before rotation so board accurately reflects win
 
+        self.rotate_sub_board(sub_board, rotation)
 
         if self.check_win('white'):  # recheck wins after rotation
             self._game_state = "WHITE_WON"
