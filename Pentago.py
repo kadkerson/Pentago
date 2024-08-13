@@ -21,7 +21,14 @@ class Player:
 
 class Pentago:
     def __init__(self):
-        self._board = [['□' for _ in range(6)] for _ in range(6)]  # creates 6x6 grid, empty spaces represented by □
+        self._board = self._board = [
+            ['□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□'],
+            ['□', '□', '□', '□', '□', '□']
+        ]
         self._players = []
         self._turn_tracker = 0  # turn 0 is white/player 1, turn 1 is black/player 2
         self._game_state = 'UNFINISHED'
@@ -119,7 +126,7 @@ class Pentago:
 
     def rotate_sub_board(self, sub_board, direction):
         """
-        Rotates a sub-board by 90 degrees in a chosen direction (clockwise or
+        Rotates a 3x3 sub-board by 90 degrees in a chosen direction (clockwise or
         anti-clockwise) when a move is made.
         """
         sub_board_locations = {1: (0, 0),
