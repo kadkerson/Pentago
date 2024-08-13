@@ -198,3 +198,28 @@ class Pentago:
                     return True
 
         return False
+
+
+def main():
+    player1 = Player("Alice", "white")
+    player2 = Player("Bob", "black")
+    game = Pentago(player1, player2)
+
+    print(game.make_move('white', 'A0', 4, 'A'))
+    print(game.make_move('black', 'B0', 4, 'C'))
+    print(game.make_move('white', 'A1', 4, 'A'))
+    print(game.make_move('black', 'B1', 4, 'C'))
+    print(game.make_move('white', 'A2', 4, 'A'))
+    print(game.make_move('black', 'B2', 4, 'C'))
+    print(game.make_move('white', 'A3', 4, 'A'))
+    print(game.make_move('black', 'B3', 1, 'C'))
+    print(game.make_move('white', 'A4', 4, 'A'))
+    print(game.make_move('black', 'B5', 2, 'C'))
+    print(game.make_move('white', 'D2', 1, 'A'))
+    print(game.make_move('black', 'D5', 2, 'A'))
+    game.print_board()
+    print(game.get_game_state())
+
+
+if __name__ == "__main__":
+    main()
