@@ -126,87 +126,107 @@ class Pentago:
 
     def rotate_sub_board(self, sub_board, direction):
         """
-        Rotates a 3x3 sub-board by 90 degrees in a chosen direction (clockwise or
+        Rotates a sub-board by 90 degrees in a chosen direction (clockwise or
         anti-clockwise) when a move is made.
         """
-        sub_board_locations = {1: (0, 0),
-                               2: (0, 3),
-                               3: (3, 0),
-                               4: (3, 3)}
+        sub_board_locations = {
+            1: ('A', '0'),
+            2: ('A', '3'),
+            3: ('D', '0'),
+            4: ('D', '3')
+        }
 
-        start_row, start_col = sub_board_locations[sub_board]
-        current_board = []
-        for row_index in range(3):  # loop to pop out sub-board as is
-            row = []
-            for col_index in range(3):
-                row.append(self._board[start_row + row_index][start_col + col_index])
-            current_board.append(row)
+        start_row_label, start_col_label = sub_board_locations[sub_board]
+        start_row = self._rows[start_row_label]
+        start_col = self._columns[start_col_label]
 
-        rotation = None
-        if direction == 'C':
-            rotation = [
+        current_board = [
+            [self._board[start_row][start_col], self._board[start_row][start_col + 1],
+             self._board[start_row][start_col + 2]],
+            [self._board[start_row + 1][start_col], self._board[start_row + 1][start_col + 1],
+             self._board[start_row + 1][start_col + 2]],
+            [self._board[start_row + 2][start_col], self._board[start_row + 2][start_col + 1],
+             self._board[start_row + 2][start_col + 2]]
+        ]
+
+        rotated = None
+        if direction == 'C':  # Clockwise rotation
+            rotated = [
                 [current_board[2][0], current_board[1][0], current_board[0][0]],
                 [current_board[2][1], current_board[1][1], current_board[0][1]],
-                [current_board[2][2], current_board[1][2], current_board[0][2]],
+                [current_board[2][2], current_board[1][2], current_board[0][2]]
             ]
-        elif direction == 'A':
-            rotation = [
+        elif direction == 'A':  # Anti-clockwise rotation
+            rotated = [
                 [current_board[0][2], current_board[1][2], current_board[2][2]],
                 [current_board[0][1], current_board[1][1], current_board[2][1]],
-                [current_board[0][0], current_board[1][0], current_board[2][0]],
+                [current_board[0][0], current_board[1][0], current_board[2][0]]
             ]
 
-        for row_index in range(3):  # put sub-board back into game
-            for col_index in range(3):
-                self._board[start_row + row_index][start_col + col_index] = rotation[row_index][col_index]
+        self._board[start_row][start_col], self._board[start_row][start_col + 1], self._board[start_row][
+            start_col + 2] = rotated[0]
+        self._board[start_row + 1][start_col], self._board[start_row + 1][start_col + 1], self._board[start_row + 1][
+            start_col + 2] = rotated[1]
+        self._board[start_row + 2][start_col], self._board[start_row + 2][start_col + 1], self._board[start_row + 2][
+            start_col + 2] = rotated[2]
 
     def check_win(self, color):
         """
         Checks if a player has placed 5 of their marbles in a row.
         """
-        if color == 'white':
-            marble = '●'
-        else:
-            marble = '○'
+        marble = '●' if color == 'white' else '○'
 
+        # Convert dict_values to list to allow indexing
         row_indices = list(self._rows.values())
         col_indices = list(self._columns.values())
 
-        for row in row_indices:  # horizon win check
-            for col in col_indices[:-4]:
-                if (self._board[row][col] == marble
-                        and self._board[row][col + 1] == marble
-                        and self._board[row][col + 2] == marble
-                        and self._board[row][col + 3] == marble
-                        and self._board[row][col + 4] == marble):
-                    return True
+        # Horizontal wins
+        for row in self._board:
+            if row[0:5] == [marble] * 5 or row[1:6] == [marble] * 5:
+                return True
 
-        for col in col_indices:  # vertical win check
-            for row in row_indices[:-4]:
-                if (self._board[row][col] == marble
-                        and self._board[row + 1][col] == marble
-                        and self._board[row + 2][col] == marble
-                        and self._board[row + 3][col] == marble
-                        and self._board[row + 4][col] == marble):
-                    return True
+        # Vertical wins
+        for col in col_indices:
+            if [self._board[row][col] for row in row_indices[:5]] == [marble] * 5:
+                return True
+            if [self._board[row][col] for row in row_indices[1:6]] == [marble] * 5:
+                return True
 
-        for row in row_indices[:-4]:   # down right diagonal win check
-            for col in col_indices[:-4]:
-                if (self._board[row][col] == marble
-                        and self._board[row + 1][col + 1] == marble
-                        and self._board[row + 2][col + 2] == marble
-                        and self._board[row + 3][col + 3] == marble
-                        and self._board[row + 4][col + 4] == marble):
-                    return True
+        # Diagonal wins (down-right)
+        diagonals = [
+            [self._board[row_indices[0]][col_indices[0]], self._board[row_indices[1]][col_indices[1]],
+             self._board[row_indices[2]][col_indices[2]], self._board[row_indices[3]][col_indices[3]],
+             self._board[row_indices[4]][col_indices[4]]],
+            [self._board[row_indices[1]][col_indices[1]], self._board[row_indices[2]][col_indices[2]],
+             self._board[row_indices[3]][col_indices[3]], self._board[row_indices[4]][col_indices[4]],
+             self._board[row_indices[5]][col_indices[5]]],
+            [self._board[row_indices[0]][col_indices[1]], self._board[row_indices[1]][col_indices[2]],
+             self._board[row_indices[2]][col_indices[3]], self._board[row_indices[3]][col_indices[4]],
+             self._board[row_indices[4]][col_indices[5]]],
+            [self._board[row_indices[1]][col_indices[0]], self._board[row_indices[2]][col_indices[1]],
+             self._board[row_indices[3]][col_indices[2]], self._board[row_indices[4]][col_indices[3]],
+             self._board[row_indices[5]][col_indices[4]]]
+        ]
+        if any(diagonal == [marble] * 5 for diagonal in diagonals):
+            return True
 
-        for row in row_indices[:-4]:   # down left diagonal win check
-            for col in col_indices[4:]:
-                if (self._board[row][col] == marble
-                        and self._board[row + 1][col - 1] == marble
-                        and self._board[row + 2][col - 2] == marble
-                        and self._board[row + 3][col - 3] == marble
-                        and self._board[row + 4][col - 4] == marble):
-                    return True
+        # Diagonal wins (down-left)
+        diagonals = [
+            [self._board[row_indices[0]][col_indices[5]], self._board[row_indices[1]][col_indices[4]],
+             self._board[row_indices[2]][col_indices[3]], self._board[row_indices[3]][col_indices[2]],
+             self._board[row_indices[4]][col_indices[1]]],
+            [self._board[row_indices[1]][col_indices[4]], self._board[row_indices[2]][col_indices[3]],
+             self._board[row_indices[3]][col_indices[2]], self._board[row_indices[4]][col_indices[1]],
+             self._board[row_indices[5]][col_indices[0]]],
+            [self._board[row_indices[0]][col_indices[4]], self._board[row_indices[1]][col_indices[3]],
+             self._board[row_indices[2]][col_indices[2]], self._board[row_indices[3]][col_indices[1]],
+             self._board[row_indices[4]][col_indices[0]]],
+            [self._board[row_indices[1]][col_indices[5]], self._board[row_indices[2]][col_indices[4]],
+             self._board[row_indices[3]][col_indices[3]], self._board[row_indices[4]][col_indices[2]],
+             self._board[row_indices[5]][col_indices[1]]]
+        ]
+        if any(diagonal == [marble] * 5 for diagonal in diagonals):
+            return True
 
         return False
 
