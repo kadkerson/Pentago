@@ -20,9 +20,9 @@ class Player:
 
 
 class Pentago:
-    def __init__(self, player_1, player_2):
+    def __init__(self):
         self._board = [['□' for _ in range(6)] for _ in range(6)]  # creates 6x6 grid, empty spaces represented by □
-        self._players = [player_1, player_2]
+        self._players = []
         self._turn_tracker = 0  # turn 0 is white/player 1, turn 1 is black/player 2
         self._game_state = 'UNFINISHED'
         self._rows = {'A': 0,
@@ -37,6 +37,9 @@ class Pentago:
                          '3': 3,
                          '4': 4,
                          '5': 5}
+
+    def create_player(self, player):
+        self._players.append(player)
 
     def get_game_state(self):
         """
@@ -161,6 +164,7 @@ class Pentago:
 
         row_indices = list(self._rows.values())
         col_indices = list(self._columns.values())
+
         for row in row_indices:  # horizon win check
             for col in col_indices[:-4]:
                 if (self._board[row][col] == marble
@@ -201,10 +205,11 @@ class Pentago:
 
 
 def main():
-    player1 = Player("Alice", "white")
-    player2 = Player("Bob", "black")
-    game = Pentago(player1, player2)
-
+    p1 = Player('alice', 'white')
+    p2 = Player('jake', 'black')
+    game = Pentago()
+    game.create_player(p1)
+    game.create_player(p2)
     print(game.make_move('white', 'A0', 4, 'A'))
     print(game.make_move('black', 'B0', 4, 'C'))
     print(game.make_move('white', 'A1', 4, 'A'))
