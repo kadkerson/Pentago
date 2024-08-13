@@ -118,11 +118,15 @@ class Pentago:
         elif self.is_board_full():  # check if draw occurred
             self._game_state = 'DRAW'
 
+        self.update_turn()
+
+        return True
+
+    def update_turn(self):
         if self._turn_tracker == 0:  # switch turns
             self._turn_tracker = 1
         else:
             self._turn_tracker = 0
-        return True
 
     def rotate_sub_board(self, sub_board, direction):
         """
@@ -207,8 +211,9 @@ class Pentago:
              self._board[row_indices[3]][col_indices[2]], self._board[row_indices[4]][col_indices[3]],
              self._board[row_indices[5]][col_indices[4]]]
         ]
-        if any(diagonal == [marble] * 5 for diagonal in diagonals):
-            return True
+        for diagonal in diagonals:
+            if diagonal == [marble] * 5:
+                return True
 
         # Diagonal wins (down-left)
         diagonals = [
@@ -225,8 +230,9 @@ class Pentago:
              self._board[row_indices[3]][col_indices[3]], self._board[row_indices[4]][col_indices[2]],
              self._board[row_indices[5]][col_indices[1]]]
         ]
-        if any(diagonal == [marble] * 5 for diagonal in diagonals):
-            return True
+        for diagonal in diagonals:
+            if diagonal == [marble] * 5:
+                return True
 
         return False
 
