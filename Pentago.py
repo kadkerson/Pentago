@@ -56,7 +56,7 @@ class Pentago:
 
     def print_board(self):
         """
-        Prints the current state of the board.
+        Prints the current state of the board. Adds row and column headers for formatting.
         """
         print("  0 1 2   3 4 5")
         for row_label, row_index in self._rows.items():
@@ -126,7 +126,7 @@ class Pentago:
 
         start_row, start_col = sub_board_locations[sub_board]
         current_board = []
-        for row_index in range(3):  # loop to pop out sub-board
+        for row_index in range(3):  # loop to pop out sub-board as is
             row = []
             for col_index in range(3):
                 row.append(self._board[start_row + row_index][start_col + col_index])
@@ -161,7 +161,7 @@ class Pentago:
 
         row_indices = list(self._rows.values())
         col_indices = list(self._columns.values())
-        for row in row_indices:
+        for row in row_indices:  # horizon win check
             for col in col_indices[:-4]:
                 if (self._board[row][col] == marble
                         and self._board[row][col + 1] == marble
@@ -170,7 +170,7 @@ class Pentago:
                         and self._board[row][col + 4] == marble):
                     return True
 
-        for col in col_indices:
+        for col in col_indices:  # vertical win check
             for row in row_indices[:-4]:
                 if (self._board[row][col] == marble
                         and self._board[row + 1][col] == marble
@@ -179,7 +179,7 @@ class Pentago:
                         and self._board[row + 4][col] == marble):
                     return True
 
-        for row in row_indices[:-4]:
+        for row in row_indices[:-4]:   # down right diagonal win check
             for col in col_indices[:-4]:
                 if (self._board[row][col] == marble
                         and self._board[row + 1][col + 1] == marble
@@ -188,7 +188,7 @@ class Pentago:
                         and self._board[row + 4][col + 4] == marble):
                     return True
 
-        for row in row_indices[:-4]:
+        for row in row_indices[:-4]:   # down left diagonal win check
             for col in col_indices[4:]:
                 if (self._board[row][col] == marble
                         and self._board[row + 1][col - 1] == marble
