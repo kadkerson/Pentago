@@ -21,7 +21,7 @@ class Player:
 
 class Pentago:
     def __init__(self):
-        self._board = self._board = [
+        self._board = [
             ['□', '□', '□', '□', '□', '□'],
             ['□', '□', '□', '□', '□', '□'],
             ['□', '□', '□', '□', '□', '□'],
