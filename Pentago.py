@@ -16,12 +16,12 @@ class Pentago:
         ]
         self._turn_tracker = 'black'  # turn 0 is black/player 2, turn 1 is white/player 1
         self._game_state = 'UNFINISHED'
-        self._rows = {'A': 0,
-                      'B': 1,
-                      'C': 2,
-                      'D': 3,
-                      'E': 4,
-                      'F': 5}
+        self._rows = {'a': 0,
+                      'b': 1,
+                      'c': 2,
+                      'd': 3,
+                      'e': 4,
+                      'f': 5}
         self._columns = {'0': 0,  # rows and columns represented as dictionaries for placing marbles
                          '1': 1,
                          '2': 2,
@@ -197,17 +197,17 @@ class Pentago:
 def main():
 
     game = Pentago()
-    print(game.make_move('black', 'B0', 4, 'C'))
-    print(game.make_move('white', 'A1', 4, 'A'))
-    print(game.make_move('black', 'B1', 4, 'C'))
-    print(game.make_move('white', 'A2', 4, 'A'))
-    print(game.make_move('black', 'B2', 4, 'C'))
-    print(game.make_move('white', 'A3', 4, 'A'))
-    print(game.make_move('black', 'B3', 1, 'C'))
-    print(game.make_move('white', 'A4', 4, 'A'))
-    print(game.make_move('black', 'B5', 2, 'C'))
-    print(game.make_move('white', 'D2', 1, 'A'))
-    print(game.make_move('black', 'B4', 2, 'A'))
+    print(game.make_move('black', 'b0', 4, 'C'))
+    print(game.make_move('white', 'a1', 4, 'A'))
+    print(game.make_move('black', 'b1', 4, 'C'))
+    print(game.make_move('white', 'a2', 4, 'A'))
+    print(game.make_move('black', 'b2', 4, 'C'))
+    print(game.make_move('white', 'a3', 4, 'A'))
+    print(game.make_move('black', 'b3', 1, 'C'))
+    print(game.make_move('white', 'a4', 4, 'A'))
+    print(game.make_move('black', 'b5', 2, 'C'))
+    print(game.make_move('white', 'd2', 1, 'A'))
+    print(game.make_move('black', 'b4', 2, 'A'))
     game.print_board()
     print(game.get_game_state())
 
