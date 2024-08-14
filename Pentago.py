@@ -4,21 +4,6 @@
 # Description: DESCRIPTION
 #
 
-class Player:
-    """Represents a Pentago player with a name and color (white or black)"""
-    def __init__(self, name, color):
-        self._name = name
-        self._color = color
-
-    def get_name(self):
-        """Returns the name of the player"""
-        return self._name
-
-    def get_color(self):
-        """Returns the color of the player"""
-        return self._color
-
-
 class Pentago:
     def __init__(self):
         self._board = [
@@ -29,8 +14,7 @@ class Pentago:
             ['□', '□', '□', '□', '□', '□'],
             ['□', '□', '□', '□', '□', '□']
         ]
-        self._players = []
-        self._turn_tracker = 0  # turn 0 is black/player 2, turn 1 is white/player 1
+        self._turn_tracker = 'black'  # turn 0 is black/player 2, turn 1 is white/player 1
         self._game_state = 'UNFINISHED'
         self._rows = {'A': 0,
                       'B': 1,
@@ -44,9 +28,6 @@ class Pentago:
                          '3': 3,
                          '4': 4,
                          '5': 5}
-
-    def create_player(self, player):
-        self._players.append(player)
 
     def get_game_state(self):
         """
@@ -87,8 +68,7 @@ class Pentago:
         if self._game_state != 'UNFINISHED':
             return 'game is finished'
 
-        current_turn = self._players[self._turn_tracker]
-        if current_turn.get_color() != color:
+        if color != self._turn_tracker:
             return "not this player's turn"
 
         row = self._rows[position[0]]
@@ -123,10 +103,10 @@ class Pentago:
         return True
 
     def update_turn(self):
-        if self._turn_tracker == 0:  # switch turns
-            self._turn_tracker = 1
+        if self._turn_tracker == 'black':  # switch turns
+            self._turn_tracker = 'white'
         else:
-            self._turn_tracker = 0
+            self._turn_tracker = 'black'
 
     def rotate_sub_board(self, sub_board, direction):
         """
@@ -212,3 +192,25 @@ class Pentago:
                         and self._board[row + 4][col - 4] == marble):
                     return True
         return False
+
+
+def main():
+
+    game = Pentago()
+    print(game.make_move('black', 'B0', 4, 'C'))
+    print(game.make_move('white', 'A1', 4, 'A'))
+    print(game.make_move('black', 'B1', 4, 'C'))
+    print(game.make_move('white', 'A2', 4, 'A'))
+    print(game.make_move('black', 'B2', 4, 'C'))
+    print(game.make_move('white', 'A3', 4, 'A'))
+    print(game.make_move('black', 'B3', 1, 'C'))
+    print(game.make_move('white', 'A4', 4, 'A'))
+    print(game.make_move('black', 'B5', 2, 'C'))
+    print(game.make_move('white', 'D2', 1, 'A'))
+    print(game.make_move('black', 'B4', 2, 'A'))
+    game.print_board()
+    print(game.get_game_state())
+
+
+if __name__ == "__main__":
+    main()
