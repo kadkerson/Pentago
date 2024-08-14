@@ -30,7 +30,7 @@ class Pentago:
             ['□', '□', '□', '□', '□', '□']
         ]
         self._players = []
-        self._turn_tracker = 0  # turn 0 is white/player 1, turn 1 is black/player 2
+        self._turn_tracker = 0  # turn 0 is black/player 2, turn 1 is white/player 1
         self._game_state = 'UNFINISHED'
         self._rows = {'A': 0,
                       'B': 1,
@@ -97,10 +97,10 @@ class Pentago:
         if self._board[row][col] != '□':
             return "position is not empty"
 
-        if color == 'white':
-            self._board[row][col] = '●'  # Symbol for Player 1/White
+        if color == 'black':
+            self._board[row][col] = '○'  # Symbol for Player 1/Black
         else:
-            self._board[row][col] = '○'  # Symbol for Player 2/Black
+            self._board[row][col] = '●'  # Symbol for Player 2/White
 
         if self.check_win('white'):
             self._game_state = "WHITE_WON"
@@ -212,29 +212,3 @@ class Pentago:
                         and self._board[row + 4][col - 4] == marble):
                     return True
         return False
-
-
-def main():
-    p1 = Player('alice', 'white')
-    p2 = Player('jake', 'black')
-    game = Pentago()
-    game.create_player(p1)
-    game.create_player(p2)
-    print(game.make_move('white', 'A0', 4, 'A'))
-    print(game.make_move('black', 'B0', 4, 'C'))
-    print(game.make_move('white', 'A1', 4, 'A'))
-    print(game.make_move('black', 'B1', 4, 'C'))
-    print(game.make_move('white', 'A2', 4, 'A'))
-    print(game.make_move('black', 'B2', 4, 'C'))
-    print(game.make_move('white', 'A3', 4, 'A'))
-    print(game.make_move('black', 'B3', 1, 'C'))
-    print(game.make_move('white', 'A4', 4, 'A'))
-    print(game.make_move('black', 'B5', 2, 'C'))
-    print(game.make_move('white', 'D2', 1, 'A'))
-    print(game.make_move('black', 'D5', 2, 'A'))
-    game.print_board()
-    print(game.get_game_state())
-
-
-if __name__ == "__main__":
-    main()
