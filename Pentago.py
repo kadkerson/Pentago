@@ -1,10 +1,16 @@
 # Author: Kyle Adkerson
 # GitHub Username: kadkerson
 # Date: 08/13/2024
-# Description: DESCRIPTION
+# Description: Program simulates the Pentago board game. It has 1 class, Pentago. It contains the methods
+#              get_game_state(), is_board_full(), print_board(), make_move(), update_turn(), rotate_sub_board(), and
+#              check_win(). The game can be played by first creating a Pentago object. Then, the user can use the
+#              make_move() method to play. Once a valid move is made, rotate_sub_board() is called to rotate the
+#              sub-board in the direction the user chose. check_win() is called before and after the rotation to see if
+#              anyone won. print_board() can be used to print the current state of the board for the user.
 #
 
 class Pentago:
+    """Represents the Pentago game, played by 2 players (black and white). Black has the first move."""
     def __init__(self):
         self._board = [
             ['□', '□', '□', '□', '□', '□'],
@@ -14,7 +20,7 @@ class Pentago:
             ['□', '□', '□', '□', '□', '□'],
             ['□', '□', '□', '□', '□', '□']
         ]
-        self._turn_tracker = 'black'  # turn 0 is black/player 2, turn 1 is white/player 1
+        self._turn_tracker = 'black'  # black starts first
         self._game_state = 'UNFINISHED'
         self._rows = {'a': 0,
                       'b': 1,
@@ -78,9 +84,9 @@ class Pentago:
             return "position is not empty"
 
         if color == 'black':
-            self._board[row][col] = '○'  # Symbol for Player 1/Black
+            self._board[row][col] = '○'  # symbol for Player 1/Black
         else:
-            self._board[row][col] = '●'  # Symbol for Player 2/White
+            self._board[row][col] = '●'  # symbol for Player 2/White
 
         if self.check_win('white'):
             self._game_state = "WHITE_WON"
@@ -103,7 +109,10 @@ class Pentago:
         return True
 
     def update_turn(self):
-        if self._turn_tracker == 'black':  # switch turns
+        """
+        Changes whose turn it is.
+        """
+        if self._turn_tracker == 'black':
             self._turn_tracker = 'white'
         else:
             self._turn_tracker = 'black'
@@ -120,7 +129,7 @@ class Pentago:
 
         start_row, start_col = sub_board_locations[sub_board]
         current_board = []
-        for row_index in range(3):  # loop to pop out sub-board as is
+        for row_index in range(3):  # copies sub-board as is
             row = []
             for col_index in range(3):
                 row.append(self._board[start_row + row_index][start_col + col_index])
@@ -140,7 +149,7 @@ class Pentago:
                 [current_board[0][0], current_board[1][0], current_board[2][0]],
             ]
 
-        for row_index in range(3):  # put sub-board back into game
+        for row_index in range(3):  # replace old sub-board with rotated sub-board
             for col_index in range(3):
                 self._board[start_row + row_index][start_col + col_index] = rotation[row_index][col_index]
 
@@ -148,15 +157,15 @@ class Pentago:
         """
         Checks if a player has placed 5 of their marbles in a row.
         """
-        if color == 'white':
-            marble = '●'
-        else:
+        if color == 'black':
             marble = '○'
+        else:
+            marble = '●'
 
         row_indices = list(self._rows.values())
         col_indices = list(self._columns.values())
 
-        for row in row_indices:  # horizon win check
+        for row in row_indices:  # horizontal win check
             for col in col_indices[:-4]:
                 if (self._board[row][col] == marble
                         and self._board[row][col + 1] == marble
@@ -207,7 +216,8 @@ def main():
     print(game.make_move('white', 'a4', 4, 'A'))
     print(game.make_move('black', 'b5', 2, 'C'))
     print(game.make_move('white', 'd2', 1, 'A'))
-    print(game.make_move('black', 'b4', 2, 'A'))
+    print(game.make_move('black', 'b4', 2, 'C'))
+
     game.print_board()
     print(game.get_game_state())
 
