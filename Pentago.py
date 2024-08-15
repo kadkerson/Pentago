@@ -77,7 +77,7 @@ class Pentago:
         if color != self._turn_tracker:
             return "not this player's turn"
 
-        row = self._rows[position[0]]
+        row = self._rows[position[0]]  # use dictionaries from innit method for marble placement
         col = self._columns[position[1]]
 
         if self._board[row][col] != '□':
